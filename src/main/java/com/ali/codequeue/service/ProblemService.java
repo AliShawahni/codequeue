@@ -34,6 +34,11 @@ public class ProblemService {
         return problemRepository.save(prev); //this line is responsible for updating the data in the database
 
     }
+    public List<Problem> getProblemsOfTopic(String topic){
+        return problemRepository.findByTopic(topic);
+    }
+
+
 
 
 

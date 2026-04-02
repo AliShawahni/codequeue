@@ -37,6 +37,10 @@ public class AttemptController {
     public Attempt toggleFlag(@PathVariable Long id) {
         return attemptService.toggleFlaggedForReview(id);
     }
+    @PutMapping("/{id}")
+    public Attempt updateAttempt(@PathVariable Long id, @RequestBody Attempt attempt) {
+        return attemptService.updateAttempt(id, attempt);
+    }
 }
 
 /*

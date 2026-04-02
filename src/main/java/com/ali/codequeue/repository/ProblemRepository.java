@@ -3,8 +3,10 @@ package com.ali.codequeue.repository;
 import com.ali.codequeue.model.Problem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProblemRepository extends JpaRepository<Problem, Long> {
+import java.util.List;
 
+public interface ProblemRepository extends JpaRepository<Problem, Long> {
+    List<Problem> findByTopic(String topic);
 }
 /*
  * REPOSITORY LAYER SUMMARY

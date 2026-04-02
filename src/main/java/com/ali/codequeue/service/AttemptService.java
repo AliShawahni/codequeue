@@ -46,6 +46,23 @@ public class AttemptService {
         attempt.setFlaggedForReview(!attempt.getFlaggedForReview());
         return attemptRepository.save(attempt);
     }
+    public Attempt updateAttempt(Long id, Attempt updated) {
+        Attempt attempt = attemptRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Attempt not found"));
+        attempt.setResult(updated.getResult());
+        attempt.setConfidence(updated.getConfidence());
+        attempt.setNotes(updated.getNotes());
+        attempt.setTimeSpentMinutes(updated.getTimeSpentMinutes());
+        attempt.setFlaggedForReview(updated.getFlaggedForReview());
+        return attemptRepository.save(attempt);
+    }
+    public List<Attempt> getAttemptsOfTopic(String topic){
+        return attemptRepository.findByProblemTopic(topic);
+    }
+    public List<Attempt> getAllAttempts() {
+        return attemptRepository.findAll();
+    }
+
 }
 
 /*

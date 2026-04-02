@@ -22,9 +22,19 @@ public class RecommendationService {
     @Autowired
     private ProblemService problemService;
 
+    public List<Problem> getReviewQueueOfTopic(String topic) {
+        List<Attempt> topicAttempts =  attemptRepository.findByProblemTopic(topic);
+        return getReviewQueueHelper(topicAttempts);
+
+    }
+
     public List<Problem> getReviewQueue() {
         List<Attempt> allAttempts = attemptRepository.findAll();
+        return getReviewQueueHelper(allAttempts);
+        }
 
+
+    public List<Problem> getReviewQueueHelper(List<Attempt> allAttempts){
         Map<Long, Attempt> latestAttemptPerProblem = new HashMap<>();
         for (Attempt a : allAttempts) {
             Long pid = a.getProblem().getId();
@@ -45,7 +55,14 @@ public class RecommendationService {
 
     public List<Problem> getDiscoverQueue() {
         List<Attempt> allAttempts = attemptRepository.findAll();
+        return getDiscoverQueueHelper(allAttempts);
+    }
+    public List<Problem> getDiscoverQueueOfTopic(String topic){
+        List<Attempt> topicAttempts =  attemptRepository.findByProblemTopic(topic);
+        return getDiscoverQueueHelper(topicAttempts);
+    }
 
+    public List<Problem> getDiscoverQueueHelper(List<Attempt> allAttempts) {
         Set<Long> attemptedIds = allAttempts.stream()
                 .map(a -> a.getProblem().getId())
                 .collect(Collectors.toSet());
