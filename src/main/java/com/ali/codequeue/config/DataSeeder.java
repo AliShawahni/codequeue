@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import java.io.InputStream;
 
 import java.io.File;
 
@@ -29,8 +30,8 @@ public class DataSeeder implements CommandLineRunner {
             System.out.println("Seeding database from problems.json...");
 
             ObjectMapper mapper = new ObjectMapper();
-            File file = new File("src/main/resources/problems.json");
-            JsonNode root = mapper.readTree(file);
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("problems.json");
+            JsonNode root = mapper.readTree(inputStream);
 
             JsonNode problems;
             if (root.isArray()) {
